@@ -10,16 +10,23 @@ public class NodeScript : MonoBehaviour
     public LineRenderer lineRend;
     void Start()
     {
-        lineRend.positionCount = 2;
-        Transform first = AdjacentNodes.First().transform;
-        Transform second = gameObject.transform;
+        lineRend.positionCount = AdjacentNodes.Count * 2;
 
-        DrawLineBetweenObjects(first, second);
+        int line = 0;
+
+        foreach (var node in AdjacentNodes)
+        {
+            Transform first = gameObject.transform;
+            Transform second = node.transform;
+
+            DrawLineBetweenObjects(first, second,line);
+            line += 2;
+        }
     }
 
-    void DrawLineBetweenObjects(Transform firstT, Transform secondT)
+    void DrawLineBetweenObjects(Transform firstT, Transform secondT, int i)
     {
-        lineRend.SetPosition(0, firstT.position);
-        lineRend.SetPosition(1, secondT.position);
+        lineRend.SetPosition(i, firstT.position);
+        lineRend.SetPosition(i+1, secondT.position);
     }
 }
