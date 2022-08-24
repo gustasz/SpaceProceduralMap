@@ -14,6 +14,7 @@ public class LevelGenerator : MonoBehaviour
     float startY = 0f;
     float connectLength = 30f;
     public GameObject nodePrefab;
+    public GameObject nodeSelectorPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -61,7 +62,13 @@ public class LevelGenerator : MonoBehaviour
                 }
             }
         }
+        var nodeSelector = Instantiate(nodeSelectorPrefab);
 
+        var iN = Random.Range(0, nodeHeight); // select a random node from the first row as the starting node
+
+        nodeSelector.GetComponent<NodeSelectorScript>().CurrentNode = allNodes[iN];
+        allNodes[iN].GetComponent<NodeScript>().IsActive = true;
+        allNodes[iN].GetComponent<SpriteRenderer>().color = Color.blue;
     }
 
     //for(int i = 0; i < nodeWidth; i++)
